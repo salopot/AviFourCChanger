@@ -28,7 +28,7 @@ func main() {
 	for _, file := range files {
 		err = updateFourCC(file, changeMap)
 		if err != nil {
-			fmt.Fprintln(os.Stderr, err)
+			log.Print(err)
 		}
 	}
 }
@@ -89,12 +89,10 @@ func updateFourCC(path string, changeMap map[string]string) error {
 
 		_, err = file.WriteAt([]byte(strings.ToLower(replace)), fourccHeaderOffset)
 		if err != nil {
-			fmt.Println("Error")
 			return fmt.Errorf("%s: can't update FourCC with error %s", path, err)
 		}
 		_, err = file.WriteAt([]byte(replace), fourccDescriptionOffset)
 		if err != nil {
-			fmt.Println("Error")
 			return fmt.Errorf("%s: can't update FourCC with error %s", path, err)
 		}
 
